@@ -4,7 +4,7 @@ from random import randint
 
 class TicTacToe(Canvas):
     def __init__(self, window):
-        """Переопределяем конструктор Canvas, определяем размеры окна, определяем статус клеток и статус нажатия"""
+        """Переопределяем конструктор Canvas, определяем размеры окна, определяем статус клеток и статус нажатия."""
 
         self.window = window
         super().__init__(window, width=300, height=300)
@@ -12,7 +12,7 @@ class TicTacToe(Canvas):
         self.bind("<Button-1>", self.click)
 
     def get_winner(self):
-        """Определяем победителя по комбинации символов(o или x)"""
+        """Определяем победителя по комбинации символов(o или x)."""
 
         winner_combo = [(0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6),
                         (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6)]
@@ -35,7 +35,8 @@ class TicTacToe(Canvas):
             self.window.quit()
 
     def bot_move(self):
-        """Отрисовка O в ответ на X"""
+        """Отрисовка O в ответ на X."""
+
         if None in self.state:   
             while True:
                 random_index = randint(0, 8)
@@ -51,7 +52,7 @@ class TicTacToe(Canvas):
 
 
     def click(self, event):
-        """Вычисляет координаты нажатия, вычисляет колонну, строку, индекс клетки по координатам"""
+        """Вычисляет координаты нажатия, вычисляет колонну, строку, индекс клетки по координатам."""
         if event.y < 100:
             if event.x < 100:
                 column = 0
@@ -99,7 +100,7 @@ class TicTacToe(Canvas):
             self.get_winner()
 
     def draw_lines(self):
-        """Рисует линии клеток"""
+        """Рисует линии клеток."""
 
         for iteration in range(1, 3):
             self.create_line(100 * iteration, 0, 100 *
@@ -108,7 +109,7 @@ class TicTacToe(Canvas):
                              100 * iteration, fill='Grey')
 
     def add_x(self, column, row):
-        """Рисует крестики"""
+        """Рисует крестики."""
 
         self.create_line(column*100+10, row*100+10,
                          column*100+90, row*100+90, width=5)
@@ -116,7 +117,7 @@ class TicTacToe(Canvas):
                          column*100+10, row*100+90, width=5)
 
     def add_o(self, column, row):
-        """Рисует нолики"""
+        """Рисует нолики."""
 
         self.create_oval(
             column*100+10,
