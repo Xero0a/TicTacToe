@@ -7,7 +7,7 @@ class TicTacToe(Canvas):
         """Переопределяем конструктор Canvas, определяем размеры окна, определяем статус клеток и статус нажатия."""
 
         self.window = window
-        super().__init__(window, width=300, height=300)
+        super().__init__(window, width=300, height=300, bg="seashell2")
         self.state = [None, None, None, None, None, None, None, None, None]
         self.bind("<Button-1>", self.click)
 
@@ -25,14 +25,15 @@ class TicTacToe(Canvas):
             combo_list.append(listok)
             i += 1
         if ['x', 'x', 'x'] in combo_list:
-            print("x_win")
-            self.window.quit()
+            winner = "x"
+            game.show_winner(winner)
         elif ['o', 'o', 'o'] in combo_list:
-            print("o_win")
-            self.window.quit()
+            winner = "o"
+            game.show_winner(winner)
         elif None not in self.state:
-            print("draw")
-            self.window.quit()
+            winner = "draw"
+            game.show_winner(winner)
+    
 
     def bot_move(self):
         """Отрисовка O в ответ на X."""
@@ -125,8 +126,20 @@ class TicTacToe(Canvas):
             column*100+100-10,
             row*100+100-10,
             width=5,
-            outline="brown2"
+            outline="navajo white"
         )
+
+    def show_winner(self, winner):
+        self.create_rectangle(0, 0, 310, 310, fill='seashell2')
+        winner_banner = game.create_text(150, 100, text='', font=("Arial", 20))
+        if winner == "x":
+            game.itemconfig(winner_banner, text="Крестик победил")
+        if winner == "o":
+            game.itemconfig(winner_banner, text="Нолик победил")
+        if winner == "draw":
+            game.itemconfig(winner_banner, text="Ничья")       
+            
+
 
 
 if __name__ == "__main__":
