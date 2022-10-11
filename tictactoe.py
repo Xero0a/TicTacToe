@@ -8,7 +8,7 @@ class TicTacToe(Canvas):
 
         self.window = window
         super().__init__(window, width=300, height=300, bg="seashell2")
-        self.state = [None, None, None, None, None, None, None, None, None]
+        self.state = {(0,0):None, (1,0):None, (2,0):None, (0,1):None, (1,1):None, (2,1):None, (0,2):None, (1,2):None, (2,2):None}
         self.bind("<Button-1>", self.click)
 
     def get_winner(self):
@@ -16,21 +16,15 @@ class TicTacToe(Canvas):
 
         winner_combo = [(0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6),
                         (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6)]
-        combo_list = []
-        i = 0
-        while i < 8:
-            listok = []
-            for el in winner_combo[i]:
-                listok.append(self.state[el])
-            combo_list.append(listok)
-            i += 1
-        if ['x', 'x', 'x'] in combo_list:
+
+        list_cells = [val for val in self.state.values()]
+        if ['x', 'x', 'x'] in winner_combo:
             winner = "x"
             game.show_winner(winner)
-        elif ['o', 'o', 'o'] in combo_list:
+        elif ['o', 'o', 'o'] in winner_combo:
             winner = "o"
             game.show_winner(winner)
-        elif None not in self.state:
+        elif None not in self.state.values():
             winner = "draw"
             game.show_winner(winner)
     
@@ -38,65 +32,26 @@ class TicTacToe(Canvas):
     def bot_move(self):
         """Отрисовка O в ответ на X."""
 
-        if None in self.state:   
+        if None in self.state.values():   
             while True:
-                random_index = randint(0, 8)
+                random_index = (randint(0, 2), randint(0, 2))
                 if self.state[random_index] is None:
                     break
             self.state[random_index] = "o"
 
-            cell_coordinates = ((0, 0), (1, 0), (2, 0), (0, 1),
-                                (1, 1), (2, 1), (0, 2), (1, 2), (2, 2))
-            self.add_o(cell_coordinates[random_index][0],
-                    cell_coordinates[random_index][1])
+            self.add_o(random_index)
 
 
 
     def click(self, event):
         """Вычисляет координаты нажатия, вычисляет колонну, строку, индекс клетки по координатам."""
-        if event.y < 100:
-            if event.x < 100:
-                column = 0
-                row = 0
-                index = 0
-            elif event.x > 100 and event.x < 200:
-                column = 1
-                row = 0
-                index = 1
-            elif event.x > 200 and event.x < 300:
-                column = 2
-                row = 0
-                index = 2
-        if event.y > 100 and event.y < 200:
-            if event.x < 100:
-                column = 0
-                row = 1
-                index = 3
-            elif event.x > 100 and event.x < 200:
-                column = 1
-                row = 1
-                index = 4
-            elif event.x > 200 and event.x < 300:
-                column = 2
-                row = 1
-                index = 5
-        if event.y > 200:
-            if event.x < 100:
-                column = 0
-                row = 2
-                index = 6
-            elif event.x > 100 and event.x < 200:
-                column = 1
-                row = 2
-                index = 7
-            elif event.x > 200 and event.x < 300:
-                column = 2
-                row = 2
-                index = 8
+        pos_x = event.x // 100
+        pos_y = event.y // 100
+        index = (pos_x, pos_y)
 
         if self.state[index] is None:
             self.state[index] = "x"
-            self.add_x(column, row)
+            self.add_x(index)
             self.bot_move()
             self.get_winner()
 
@@ -109,27 +64,29 @@ class TicTacToe(Canvas):
             self.create_line(0, 100 * iteration, 300,
                              100 * iteration, fill='Grey')
 
-    def add_x(self, column, row):
+    def add_x(self, index):
         """Рисует крестики."""
 
-        self.create_line(column*100+10, row*100+10,
-                         column*100+90, row*100+90, width=5)
-        self.create_line(column*100+90, row*100+10,
-                         column*100+10, row*100+90, width=5)
+        self.create_line(index[0]*100+10, index[1]*100+10,
+                         index[0]*100+90, index[1]*100+90, width=5)
+        self.create_line(index[0]*100+90, index[1]*100+10,
+                         index[0]*100+10, index[1]*100+90, width=5)
 
-    def add_o(self, column, row):
+    def add_o(self, index):
         """Рисует нолики."""
 
         self.create_oval(
-            column*100+10,
-            row*100+10,
-            column*100+100-10,
-            row*100+100-10,
+            index[0]*100+10,
+            index[1]*100+10,
+            index[0]*100+100-10,
+            index[1]*100+100-10,
             width=5,
             outline="navajo white"
         )
 
     def show_winner(self, winner):
+        """Выводит победителя на экран"""
+
         self.create_rectangle(0, 0, 310, 310, fill='seashell2')
         winner_banner = game.create_text(150, 100, text='', font=("Arial", 20))
         if winner == "x":
