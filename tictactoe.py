@@ -8,8 +8,8 @@ class TicTacToe(Canvas):
 
         self.window = window
         super().__init__(window, width=300, height=300, bg="seashell2")
-        self.state = {(0,0):None, (1,0):None, (2,0):None, (0,1):None, (1,1):None,
-                      (2,1):None, (0,2):None, (1,2):None, (2,2):None}
+        self.state = {(0, 0):None, (1, 0):None, (2, 0):None, (0, 1):None, (1, 1):None,
+                      (2, 1):None, (0, 2):None, (1, 2):None, (2, 2):None}
         self.bind("<Button-1>", self.click)
 
     def get_winner(self):
