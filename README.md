@@ -1,6 +1,8 @@
 # TicTacToe
 
-## ##Проект "крестики-нолики" из курса ![C:\Users\Xeroa\Downloads\images.png](https://letpy.com/)
+## Проект "крестики-нолики" из курса ![C:\Users\Xeroa\Downloads\images.png](https://letpy.com/)
+
+---
 
 Проект написан на Python 3.8
 При запуске на linux установить модуль **tkinter** -  
