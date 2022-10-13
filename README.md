@@ -1,6 +1,6 @@
 # TicTacToe
 
-## Проект "крестики-нолики" из курса ![C:\Users\Xeroa\Downloads\images.png](https://letpy.com/)
+## Проект "крестики-нолики" из курса ![https://letpy.com/static/frontend/images/Logo_for_site.svg](https://letpy.com/)
 
 ---
 
