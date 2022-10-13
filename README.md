@@ -1,6 +1,6 @@
 # TicTacToe
 
-## Проект "крестики-нолики" из курса [![https://github.com/Xero0a/Images/blob/main/images.png](https://letpy.com/)
+## Проект "крестики-нолики" из курса ![www.letpy.com](https://github.com/Xero0a/Images/blob/main/images.png)
 
 ---
 
